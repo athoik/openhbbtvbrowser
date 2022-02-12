@@ -23,10 +23,10 @@ window.alert = function alert(message) {
 }
 
 window.addEventListener('load', function() {
-  //check if we are on ert.gr and try to fix menu up/down
+  //check if we are on ert.gr/skai/mega and try to fix menu up/down
   let href = window.location.href;
-  if (href.indexOf(".ert.gr") > -1 || href.indexOf("skai.smart-tv-data.com") > -1) {
-    console.info('[MENUFIX] Trying to fix double key up/down move in ert.gr');
+  if (href.indexOf(".ert.gr") > -1 || href.indexOf("skai.smart-tv-data.com") > -1 || href.indexOf("mega.smart-tv-data.com") > -1) {
+    console.info('[MENUFIX] Trying to fix double key up/down');
     document.removeEventListener(GLOBALS.keyevent, GLOBALS.keyeventlistener, false);
     GLOBALS.keyeventlistener = function (e) {
       if(!e.isTrusted && (e.keyCode == VK_DOWN||e.keyCode == VK_UP)) return;
