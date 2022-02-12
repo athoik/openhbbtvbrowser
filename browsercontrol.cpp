@@ -61,6 +61,7 @@ void RemoteController::readKeycode()
     n /= sizeof(buffer[0]);
 
     for (int i = 0; i < n; ++i) {
+        qWarning("[RemoteController::readKeycode] type: %d value: %d code: %d", buffer[i].type, buffer[i].value, buffer[i].code);
         if (buffer[i].type == 1 && buffer[i].value != 0) {
             int vk = VirtualKey::VK_UNDEFINED;
             switch (buffer[i].code) {
@@ -98,6 +99,7 @@ void RemoteController::readKeycode()
             case KEY_MENU:          [[fallthrough]];
             case KEY_POWER:         QApplication::quit(); break;
             }
+            if (vk != VirtualKey::VK_UNDEFINED) qWarning("[RemoteController::readKeycode] handling code %d key %d", buffer[i].code, vk); 
             if (vk != VirtualKey::VK_UNDEFINED) emit activate(vk);
         }
     }
