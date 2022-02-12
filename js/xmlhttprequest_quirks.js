@@ -21,3 +21,21 @@ window.alert = function alert(message) {
   // alert is breaking openhbbtv, override to console.info
   console.info('[ALERT]: ' + message);
 }
+
+window.addEventListener('load', function() {
+  //check if we are on ert.gr and try to fix menu up/down
+  if (window.location.href.indexOf(".ert.gr") > -1) {
+    console.info('[MENUFIX] Trying to fix double key up/down move in ert.gr');
+    document.removeEventListener(GLOBALS.keyevent, GLOBALS.keyeventlistener, false);
+    GLOBALS.keyeventlistener = function (e) {
+      if(!e.isTrusted && (e.keyCode == VK_DOWN||e.keyCode == VK_UP)) return;
+      if (GLOBALS.demomode && (e.ctrlKey || e.altKey || e.metaKey)) return;
+      var kc = e.keyCode, handled;
+      if (!kc) kc = e.charCode;
+      handled = GLOBALS.focusmgr.handleKeyCode(kc);
+      if (handled) e.preventDefault();
+      return handled;
+    }
+    document.addEventListener(GLOBALS.keyevent, GLOBALS.keyeventlistener, false);
+  }
+});
