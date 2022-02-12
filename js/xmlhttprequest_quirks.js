@@ -16,3 +16,8 @@ window.cefXmlHttpRequestQuirk = function(uri) {
   // return unchanged URL
   return uri;
 }
+
+window.alert = function alert(message) {
+  // alert is breaking openhbbtv, override to console.info
+  console.info('[ALERT]: ' + message);
+}
